@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{462ab47d-02c4-49ac-97b8-3e2290272add}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>puz.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="scripts\html\error.html" />
+    <Content Include="scripts\html\style.css" />
+    <Content Include="tox.ini" />
+    <Content Include="xdfile\requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="crossword\compat.py" />
+    <Compile Include="crossword\core.py" />
+    <Compile Include="crossword\exceptions.py" />
+    <Compile Include="crossword\format_ipuz.py" />
+    <Compile Include="crossword\format_puz.py" />
+    <Compile Include="crossword\__init__.py" />
+    <Compile Include="puz.py" />
+    <Compile Include="queries\enumclues.py" />
+    <Compile Include="queries\freqcount.py" />
+    <Compile Include="queries\remix.py" />
+    <Compile Include="queries\similarity.py" />
+    <Compile Include="queries\xdstats.py" />
+    <Compile Include="scripts\09-collection2zip.py" />
+    <Compile Include="scripts\11-download-puzzles.py" />
+    <Compile Include="scripts\12-parse-email.py" />
+    <Compile Include="scripts\18-convert2xd.py" />
+    <Compile Include="scripts\19-reshelve.py" />
+    <Compile Include="scripts\21-clean-metadata.py" />
+    <Compile Include="scripts\25-analyze-puzzle.py" />
+    <Compile Include="scripts\26-mkzip-clues.py" />
+    <Compile Include="scripts\27-pubyear-stats.py" />
+    <Compile Include="scripts\28-mkzip-public.py" />
+    <Compile Include="scripts\29-mkzip-metadata.py" />
+    <Compile Include="scripts\33-mkwww-words.py" />
+    <Compile Include="scripts\34-mkwww-clues.py" />
+    <Compile Include="scripts\35-mkwww-diffs.py" />
+    <Compile Include="scripts\36-mkwww-deepclues.py" />
+    <Compile Include="scripts\37-pubyear-svg.py" />
+    <Compile Include="scripts\38-mkwww-redirects.py" />
+    <Compile Include="scripts\39-mkwww-logs.py" />
+    <Compile Include="scripts\44-mkwww-pages.py" />
+    <Compile Include="scripts\49-cat-logs.py" />
+    <Compile Include="scripts\90-split-archive.py" />
+    <Compile Include="scripts\httpxd.py" />
+    <Compile Include="scripts\send-email.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="xdfile\catalog.py" />
+    <Compile Include="xdfile\ccxml2xd.py" />
+    <Compile Include="xdfile\cloud.py" />
+    <Compile Include="xdfile\html.py" />
+    <Compile Include="xdfile\metadatabase.py" />
+    <Compile Include="xdfile\pubyear.py" />
+    <Compile Include="xdfile\puz2xd.py" />
+    <Compile Include="xdfile\tests\test_puz2xd.py" />
+    <Compile Include="xdfile\tests\test_utils.py" />
+    <Compile Include="xdfile\tests\test_xdfile.py" />
+    <Compile Include="xdfile\tests\__init__.py" />
+    <Compile Include="xdfile\ujson2xd.py" />
+    <Compile Include="xdfile\utils.py" />
+    <Compile Include="xdfile\uxml2xd.py" />
+    <Compile Include="xdfile\xdfile.py" />
+    <Compile Include="xdfile\xwordinfo2xd.py" />
+    <Compile Include="xdfile\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="crossword" />
+    <Folder Include="queries" />
+    <Folder Include="scripts" />
+    <Folder Include="scripts\html" />
+    <Folder Include="xdfile" />
+    <Folder Include="xdfile\tests" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

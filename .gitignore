@@ -11,3 +11,4 @@ pub/
 tags
 Session.vim
 *.swp
+*.suo
