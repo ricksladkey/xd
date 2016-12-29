@@ -6,7 +6,7 @@
 import re
 
 from lxml import html
-from xdfile.utils import info, debug, error, get_args
+from xdfile.utils import info, debug, error
 import xdfile
 
 SPLIT_REBUS_TITLES = "CRYPTOCROSSWORD TIC-TAC-TOE".split()
@@ -212,7 +212,7 @@ def _fetch_clues(xd, clueprefix, root, css_identifier, rebus):
 
 if __name__ == "__main__":
     import sys
-    from .utils import find_files
+    from .utils import find_files, get_args
     args = get_args(desc='convert xwordinfo HTML to xd format')
     for fn, contents in find_files(*args.inputs):
         xd = parse_xwordinfo(contents, fn)
