@@ -6,7 +6,7 @@
 import re
 
 from lxml import html
-from xdfile.utils import info, debug, error
+from xdfile.utils import info, debug, error, get_args
 import xdfile
 
 SPLIT_REBUS_TITLES = "CRYPTOCROSSWORD TIC-TAC-TOE".split()
@@ -81,31 +81,29 @@ def parse_xwordinfo(content, filename):
     xd = xdfile.xdfile('', filename)
 
     # get crossword info
-    title = root.cssselect(xwiprefix + 'TitleLabel')[0].text.strip()
+    title = root.cssselect(xwiprefix + 'toppanel #PuzTitle')[0].text.strip()
     try:
         subtitle = root.cssselect(xwiprefix + 'SubTitleLabel')[0].text.strip()
         subtitle = ' [%s]' % subtitle
     except:
         subtitle = ""
 
-    # author = root.cssselect(xwiprefix + 'AuthorLabel')[0].text.strip()
-    # editor = root.cssselect(xwiprefix + 'EditorLabel')[0].text.strip()
     try:
-        xd.notes = stringify_children(root.cssselect(xwiprefix + 'NotepadDiv')[0])
+        xd.notes = stringify_children(root.cssselect('#notepad')[0])
     except Exception as e:
         xd.notes = ""
         debug('Exception %s' % e)
 
     xd.set_header("Title", '%s%s' % (title, subtitle))
-    xd.set_header("Author", root.cssselect(xwiprefix + 'AuthorLabel')[0].text.strip())
-    xd.set_header("Editor", root.cssselect(xwiprefix + 'EditorLabel')[0].text.strip())
+    xd.set_header("Author", root.cssselect(xwiprefix + 'aetable tr td')[1].text.strip())
+    xd.set_header("Editor", root.cssselect(xwiprefix + 'aetable tr td')[3].text.strip())
 
     xd.notes = xd.notes.replace("<br/>", "\n")
     xd.notes = xd.notes.replace("<b>Notepad:</b>", "\n")
     xd.notes = xd.notes.replace("&#13;", "\n")
     xd.notes = xd.notes.strip()
 
-    puzzle_table = root.cssselect(xwiprefix + 'PuzTable tr') or root.cssselect('#PuzTable tr')
+    puzzle_table = root.cssselect('#PuzTable tr') or root.cssselect('#PuzTable tr')
 
     for row in puzzle_table:
         row_data = ""
@@ -166,8 +164,8 @@ def parse_xwordinfo(content, filename):
         xd.set_header("Special", special_type)
 
     # add clues
-    across_clues = _fetch_clues(xd, 'A', root, xwiprefix + 'AcrossClues', rebus)
-    down_clues = _fetch_clues(xd, 'D', root, xwiprefix + 'DownClues', rebus)
+    across_clues = _fetch_clues(xd, 'A', root, xwiprefix + 'tdAcrossClues', rebus)
+    down_clues = _fetch_clues(xd, 'D', root, xwiprefix + 'tdDownClues', rebus)
 
     return xd
 
@@ -215,7 +213,8 @@ def _fetch_clues(xd, clueprefix, root, css_identifier, rebus):
 if __name__ == "__main__":
     import sys
     from .utils import find_files
-    for fn, contents in find_files(*sys.argv[1:]):
+    args = get_args(desc='convert xwordinfo HTML to xd format')
+    for fn, contents in find_files(*args.inputs):
         xd = parse_xwordinfo(contents, fn)
         print("--- %s ---" % fn)
         print(xd.to_unicode())
