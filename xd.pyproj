@@ -21,6 +21,11 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="AWS.md" />
+    <Content Include="CONTRIBUTING.md" />
+    <Content Include="PROCESSING.md" />
+    <Content Include="README.md" />
     <Content Include="scripts\html\error.html" />
     <Content Include="scripts\html\style.css" />
     <Content Include="tox.ini" />
