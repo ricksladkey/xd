@@ -24,14 +24,15 @@ def to_puz(xd):
     for row in xd.grid:
         for cell in row:
             filled_cells.append('.' if cell == xdfile.BLOCK_CHAR else cell)
-            unfilled_cells.append('.' if cell == xdfile.BLOCK_CHAR else ' ')
+            unfilled_cells.append('.' if cell == xdfile.BLOCK_CHAR else '-')
     result.solution = ''.join(filled_cells)
     result.fill = ''.join(unfilled_cells)
 
     result.clues = []
-    for pos, clue, answer in xd.clues:
-        if answer:
-            result.clues.append(clue)
+    clues = [(pos[1], clue) for pos, clue, answer in xd.clues if answer]
+    clues = sorted(clues, key=lambda item: item[0])
+    for index, clue in clues:
+        result.clues.append(clue)
 
     return result
 
