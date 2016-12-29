@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8
 
-import puz
-import crossword
-
 import xdfile
+import puz
 
 
 def to_puz(xd):
 
     result = puz.Puzzle()
 
-    result.preamble = b''
+    result.preamble = b'' # workaround for new puzzle bug
     result.width = xd.width()
     result.height = xd.height()
     if 'Author' in xd.headers:
