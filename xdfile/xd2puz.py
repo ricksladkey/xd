@@ -7,9 +7,11 @@ import puz
 
 def to_puz(xd):
 
+    # Create a blank puzzle.
     result = puz.Puzzle()
-
     result.preamble = b'' # workaround for new puzzle bug
+
+    # Fill in the main puzzle fields.
     result.width = xd.width()
     result.height = xd.height()
     if 'Author' in xd.headers:
@@ -19,20 +21,34 @@ def to_puz(xd):
     if 'Title' in xd.headers:
         result.title = xd.headers['Title']
 
+    # Populate the solved puzzle and the unsolved puzzle.
     filled_cells = []
     unfilled_cells = []
     for row in xd.grid:
         for cell in row:
-            filled_cells.append('.' if cell == xdfile.BLOCK_CHAR else cell)
-            unfilled_cells.append('.' if cell == xdfile.BLOCK_CHAR else '-')
+            is_block = cell == xdfile.BLOCK_CHAR
+            filled_cells.append('.' if is_block else cell.upper())
+            unfilled_cells.append('.' if is_block else '-')
     result.solution = ''.join(filled_cells)
     result.fill = ''.join(unfilled_cells)
 
+    # Populate the clues which are sorted by number (across first if both).
     result.clues = []
     clues = [(pos[1], clue) for pos, clue, answer in xd.clues if answer]
     clues = sorted(clues, key=lambda item: item[0])
     for index, clue in clues:
         result.clues.append(clue)
+
+    # Handle shaded/circled squares.
+    if 'Special' in xd.headers:
+        markup = []
+        for row in xd.grid:
+            for cell in row:
+                value = puz.GridMarkup.Default
+                if cell == cell.lower():
+                    value = puz.GridMarkup.Circled
+                markup.append(value)
+        result.markup().markup = markup
 
     return result
 
