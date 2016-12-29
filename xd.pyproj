@@ -82,6 +82,9 @@
     <Compile Include="xdfile\ujson2xd.py" />
     <Compile Include="xdfile\utils.py" />
     <Compile Include="xdfile\uxml2xd.py" />
+    <Compile Include="xdfile\xd2puz.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="xdfile\xdfile.py" />
     <Compile Include="xdfile\xwordinfo2xd.py" />
     <Compile Include="xdfile\__init__.py" />
