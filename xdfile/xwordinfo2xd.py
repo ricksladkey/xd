@@ -82,17 +82,18 @@ def parse_xwordinfo(content, filename):
 
     # get crossword info
     title = root.cssselect(xwiprefix + 'toppanel #PuzTitle')[0].text.strip()
-    try:
-        subtitle = root.cssselect(xwiprefix + 'SubTitleLabel')[0].text.strip()
+    subtitles = root.cssselect(xwiprefix + 'SubTitleLabel')
+    if subtitles:
+        subtitle = subtitles[0].text.strip()
         subtitle = ' [%s]' % subtitle
-    except:
+    else:
         subtitle = ""
 
-    try:
-        xd.notes = stringify_children(root.cssselect('#notepad')[0])
-    except Exception as e:
+    notepads = root.cssselect('#notepad')
+    if notepads:
+        xd.notes = stringify_children(notepads[0])
+    else:
         xd.notes = ""
-        debug('Exception %s' % e)
 
     xd.set_header("Title", '%s%s' % (title, subtitle))
     xd.set_header("Author", root.cssselect(xwiprefix + 'aetable tr td')[1].text.strip())
