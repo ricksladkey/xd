@@ -15,7 +15,10 @@ def to_puz(xd):
     result.width = xd.width()
     result.height = xd.height()
     if 'Author' in xd.headers:
-        result.author = xd.headers['Author']
+        if 'Editor' in xd.headers:
+            result.author = xd.headers['Author'] + ' / ' + xd.headers['Editor']
+        else:
+            result.author = xd.headers['Author']
     if 'Copyright' in xd.headers:
         result.copyright = xd.headers['Copyright']
     if 'Title' in xd.headers:
