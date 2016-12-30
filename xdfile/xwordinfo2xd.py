@@ -96,6 +96,7 @@ def parse_xwordinfo(content, filename):
         xd.notes = ""
 
     xd.set_header("Title", '%s%s' % (title, subtitle))
+    xd.set_header("Copyright", root.cssselect(xwiprefix + 'Copyright')[0].text.strip())
     xd.set_header("Author", root.cssselect(xwiprefix + 'aetable tr td')[1].text.strip())
     xd.set_header("Editor", root.cssselect(xwiprefix + 'aetable tr td')[3].text.strip())
 
