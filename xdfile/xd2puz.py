@@ -9,7 +9,7 @@ def to_puz(xd):
 
     # Create a blank puzzle.
     result = puz.Puzzle()
-    result.preamble = b'' # workaround for new puzzle bug
+    result.preamble = b'' # workaround for new puzzle
 
     # Fill in the main puzzle fields.
     result.width = xd.width()
@@ -53,10 +53,26 @@ def to_puz(xd):
         for row in xd.grid:
             for cell in row:
                 value = puz.GridMarkup.Default
-                if cell[0].isalpha() and cell == cell.lower():
+                if cell.isalpha() and cell == cell.lower():
                     value = puz.GridMarkup.Circled
                 markup.append(value)
         result.markup().markup = markup
+
+    # Handle rebus.
+    if 'Rebus' in xd.headers:
+        result.extensions[puz.Extensions.Rebus] = b'' # workaround for new puzzle
+        table = []
+        for row in xd.grid:
+            for cell in row:
+                value = 0
+                if not cell.isalpha() and cell != xdfile.BLOCK_CHAR:
+                    value = ord(cell) + 1
+                table.append(value)
+        result.rebus().table = table
+        result.rebus().solutions = {
+            ord(cellchar): replstr
+            for cellchar, replstr in xd.rebus().items()
+        }
 
     return result
 

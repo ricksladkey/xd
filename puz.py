@@ -559,8 +559,9 @@ class Rebus:
             self.puzzle.extensions[Extensions.Rebus] = pack_bytes(self.table)
             rebus_solutions = dict_to_string(self.solutions).encode(ENCODING)
             self.puzzle.extensions[Extensions.RebusSolutions] = rebus_solutions
-            rebus_fill = dict_to_string(self.fill).encode(ENCODING)
-            self.puzzle.extensions[Extensions.RebusFill] = rebus_fill
+            if self.fill:
+                rebus_fill = dict_to_string(self.fill).encode(ENCODING)
+                self.puzzle.extensions[Extensions.RebusFill] = rebus_fill
 
 
 class Markup:
