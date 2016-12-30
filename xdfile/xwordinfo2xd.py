@@ -13,7 +13,9 @@ SPLIT_REBUS_TITLES = "CRYPTOCROSSWORD TIC-TAC-TOE".split()
 
 
 def stringify_children(node):
-    s = node.text
+    for br in node.cssselect("br"):
+        br.tail = "\n" + br.tail if br.tail else "\n"
+    s = node.text_content()
     if s is None:
         s = ''
     # for child in node:
