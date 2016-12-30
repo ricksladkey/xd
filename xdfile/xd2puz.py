@@ -52,7 +52,7 @@ def to_puz(xd):
         for row in xd.grid:
             for cell in row:
                 value = puz.GridMarkup.Default
-                if cell == cell.lower():
+                if cell[0].isalpha() and cell == cell.lower():
                     value = puz.GridMarkup.Circled
                 markup.append(value)
         result.markup().markup = markup
