@@ -27,6 +27,7 @@ def to_puz(xd):
         result.notes = xd.header['Notes']
     else:
         result.notes = xd.notes.replace('{*Notepad:*}', '').strip()
+    result.notes = result.notes.replace('\n', '\r\n')
 
     # Populate the solved puzzle and the unsolved puzzle.
     filled_cells = []
