@@ -23,6 +23,10 @@ def to_puz(xd):
         result.copyright = xd.headers['Copyright']
     if 'Title' in xd.headers:
         result.title = xd.headers['Title']
+    if 'Notes' in xd.headers:
+        result.notes = xd.header['Notes']
+    else:
+        result.notes = xd.notes.replace('{*Notepad:*}', '').strip()
 
     # Populate the solved puzzle and the unsolved puzzle.
     filled_cells = []
