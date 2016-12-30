@@ -254,6 +254,7 @@ class xdfile:
                 nblanklines += 1
                 continue
             else:
+                preceding_blanklines = nblanklines
                 if nblanklines >= 2:
                     section += 1
                     subsection = 1
@@ -279,7 +280,7 @@ class xdfile:
                     else:
                         self.set_header(k, v)
                 else:
-                    self.notes += line + "\n"
+                    self.notes += EOL * preceding_blanklines + line + EOL
 
             elif section == 2:
                 assert self.headers, "no headers"
@@ -308,8 +309,9 @@ class xdfile:
                     cluenum = pos  # fallback to strings for non-numeric clue "numbers"
                 self.clues.append(((cluedir, cluenum), clue.strip(), answer.strip()))
             else:  # anything remaining
-                if line:
-                    self.notes += line + EOL
+                self.notes += EOL * preceding_blanklines + line + EOL
+
+        self.notes = self.notes.strip()
 
 
     def iterheaders(self):
