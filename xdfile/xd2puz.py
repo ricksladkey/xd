@@ -48,6 +48,7 @@ def to_puz(xd):
         result.clues.append(clue)
 
     # Handle shaded/circled squares.
+    # Example: nyt-2008-09-11
     if 'Special' in xd.headers:
         markup = []
         for row in xd.grid:
@@ -59,6 +60,8 @@ def to_puz(xd):
         result.markup().markup = markup
 
     # Handle rebus.
+    # Example: nyt-2008-09-11
+    # Example: nyt-2016-12-15
     if 'Rebus' in xd.headers:
         result.extensions[puz.Extensions.Rebus] = b'' # workaround for new puzzle
         table = []
