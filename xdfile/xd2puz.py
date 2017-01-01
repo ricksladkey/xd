@@ -61,7 +61,7 @@ def to_puz(xd):
 
     # Handle rebus.
     # Example: nyt-2008-09-11
-    # Example: nyt-2016-12-15
+    # Example: nyt-2008-09-14
     if 'Rebus' in xd.headers:
         result.extensions[puz.Extensions.Rebus] = b'' # workaround for new puzzle
         mapping = {
@@ -72,8 +72,8 @@ def to_puz(xd):
         for row in xd.grid:
             for cell in row:
                 value = 0
-                if not cell.isalpha() and cell != xdfile.BLOCK_CHAR:
-                    value = mapping[cell] + 1
+                if cell in mapping:
+                    value = mapping[cell] + 1 # plus one because zero is valid
                 table.append(value)
         result.rebus().table = table
         result.rebus().solutions = {
