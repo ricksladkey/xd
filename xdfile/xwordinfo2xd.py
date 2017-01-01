@@ -163,7 +163,7 @@ def parse_xwordinfo(content, filename):
 
     if len(rebus):
         rebus = ["%s=%s" % (rebus[x], x.upper()) for x in rebus_order]
-        xd.set_header("Rebus", ','.join(rebus))
+        xd.set_header("Rebus", xdfile.REBUS_SEP.join(rebus))
     if special_type:
         xd.set_header("Special", special_type)
 
