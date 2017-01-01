@@ -64,16 +64,20 @@ def to_puz(xd):
     # Example: nyt-2016-12-15
     if 'Rebus' in xd.headers:
         result.extensions[puz.Extensions.Rebus] = b'' # workaround for new puzzle
+        mapping = {
+            value: key
+            for key, value in enumerate(sorted(xd.rebus().keys()))
+        }
         table = []
         for row in xd.grid:
             for cell in row:
                 value = 0
                 if not cell.isalpha() and cell != xdfile.BLOCK_CHAR:
-                    value = ord(cell) + 1
+                    value = mapping[cell] + 1
                 table.append(value)
         result.rebus().table = table
         result.rebus().solutions = {
-            ord(cellchar): replstr
+            mapping[cellchar]: replstr
             for cellchar, replstr in xd.rebus().items()
         }
 
