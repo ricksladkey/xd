@@ -40,12 +40,22 @@ def to_puz(xd):
     result.solution = ''.join(filled_cells)
     result.fill = ''.join(unfilled_cells)
 
-    # Populate the clues which are sorted by number (across first if both).
+    # Handle missing clues.
+    # Example: nyt-2016-12-01
+    result.clues = ['' for _ in range(result.width * result.height)]
+    numbering = result.clue_numbering()
+    across = [(item['num'], 'A') for item in numbering.across]
+    down = [(item['num'], 'D') for item in numbering.down]
+    clues = {item: '(no clue)' for item in across + down}
     result.clues = []
-    clues = [(pos[1], clue) for pos, clue, answer in xd.clues if answer]
-    clues = sorted(clues, key=lambda item: item[0])
-    for index, clue in clues:
-        result.clues.append(clue)
+
+    # Overwrite expected clues with provided clues.
+    for pos, clue, answer in xd.clues:
+        if answer:
+            clues[pos[1], pos[0]] = clue
+
+    # Populate the clues sorted by increasing box number then across first.
+    result.clues = [clues[key] for key in sorted(clues.keys())]
 
     # Handle shaded/circled squares.
     # Example: nyt-2008-09-11
