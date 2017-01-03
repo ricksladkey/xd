@@ -84,7 +84,7 @@ def parse_xwordinfo(content, filename):
 
     # get crossword info
     title = root.cssselect(xwiprefix + 'toppanel #PuzTitle')[0].text.strip()
-    subtitles = root.cssselect(xwiprefix + 'SubTitleLabel')
+    subtitles = root.cssselect(xwiprefix + 'SubTitleH3')
     if subtitles:
         subtitle = subtitles[0].text.strip()
         subtitle = ' [%s]' % subtitle
