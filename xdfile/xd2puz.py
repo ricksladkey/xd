@@ -75,8 +75,8 @@ def to_puz(xd):
     if 'Rebus' in xd.headers:
         result.extensions[puz.Extensions.Rebus] = b'' # workaround for new puzzle
         mapping = {
-            value: key
-            for key, value in enumerate(sorted(xd.rebus().keys()))
+            key: value
+            for value, key in enumerate(sorted(xd.rebus().keys()))
         }
         table = []
         for row in xd.grid:
