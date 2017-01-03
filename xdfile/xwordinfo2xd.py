@@ -103,11 +103,11 @@ def parse_xwordinfo(content, filename):
     xd.set_header("Editor", root.cssselect(xwiprefix + 'aetable tr td')[3].text.strip())
 
     xd.notes = xd.notes.replace("<br/>", "\n")
-    xd.notes = xd.notes.replace("<b>Notepad:</b>", "\n")
+    xd.notes = xd.notes.replace("{*Notepad:*}", "\n")
     xd.notes = xd.notes.replace("&#13;", "\n")
     xd.notes = xd.notes.strip()
 
-    puzzle_table = root.cssselect('#PuzTable tr') or root.cssselect('#PuzTable tr')
+    puzzle_table = root.cssselect('#PuzTable tr')
 
     for row in puzzle_table:
         row_data = ""
