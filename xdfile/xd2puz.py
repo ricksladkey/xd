@@ -28,6 +28,7 @@ def to_puz(xd):
     else:
         result.notes = xd.notes
     result.notes = result.notes.replace('\n', '\r\n')
+    result.notes = result.notes.replace('\u2014', '-')
 
     # Populate the solved puzzle and the unsolved puzzle.
     filled_cells = []
